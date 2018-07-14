@@ -6,7 +6,7 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
-var xEnemyEdgeLeft = x+(xStep*-2);
+var xEdgeLeft = x+(xStep*-2);
 var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
 
 // Enemies our player must avoid
@@ -27,11 +27,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (allEnemies[0].x > xEnemyEdgeRight) {
-      this.x = xEnemyEdgeLeft-1;
-    } else {
-      this.x +=1; // enemies should show up from outside of the board, not suddenly appear on the first column
-    }
+      if (allEnemies[0].x > xEnemyEdgeRight) {
+        this.x = xEdgeLeft-1;
+      } else {
+        this.x +=1; // enemies should show up from outside of the board, not suddenly appear on the first column
+      }
 };
 
 Enemy.prototype.render = function() {
@@ -44,13 +44,25 @@ var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*
 // This class requires an update() and
 // a handleInput() method.
 var Player = function() {
-  this.x = 202+(xStep*-2);
+  this.x = 202+(xStep*-1);
   this.y = 400;
   this.sprite = "images/char-cat-girl.png"
 }
 // render function for player was not included in starter code
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function (allowedKeys){
+  if (allowedKeys === "left" && player.x > 0){ // movement upon left key, if within boundaries
+    player.x -= xStep;
+  } else if (allowedKeys === "right" && player.x < 404){
+    player.x += xStep;
+  } else if (allowedKeys === "up" && player.y > 0){
+    player.y -= yStep;
+  } else if (allowedKeys === "down" && player.y < 400){
+    player.y += yStep;
+  }
 };
 
 var player = new Player();
