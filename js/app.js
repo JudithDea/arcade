@@ -6,8 +6,8 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
-var xEdgeLeft = x+(xStep*-2);
-var xEdgeRight = x+(xStep*2);
+var xEnemyEdgeLeft = x+(xStep*-2);
+var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -27,10 +27,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (allEnemies[0].x > xEdgeRight) {
-      this.x = x-1;
+    if (allEnemies[0].x > xEnemyEdgeRight) {
+      this.x = xEnemyEdgeLeft-1;
     } else {
-      this.x +=1;
+      this.x +=1; // enemies should show up from outside of the board, not suddenly appear on the first column
     }
 };
 
