@@ -6,6 +6,9 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
+var xEdgeLeft = x+(xStep*-2);
+var xEdgeRight = x+(xStep*2);
+
 // Enemies our player must avoid
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
@@ -24,6 +27,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if (allEnemies[0].x > xEdgeRight) {
+      this.x = x-1;
+    } else {
+      this.x +=1;
+    }
 };
 
 Enemy.prototype.render = function() {
@@ -39,8 +47,6 @@ var Player = function() {
   this.x = 202+(xStep*-2);
   this.y = 400;
   this.sprite = "images/char-cat-girl.png"
-  this.xEdgeLeft = x+(xStep*-2);
-  this.xEdgeRight = x+(xStep*2);
 }
 // render function for player was not included in starter code
 Player.prototype.render = function() {
