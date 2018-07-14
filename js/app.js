@@ -43,9 +43,9 @@ var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*
 // Now write your own player class
 // This class requires an update() and
 // a handleInput() method.
-var Player = function() {
-  this.x = 202+(xStep*-1);
-  this.y = 400;
+var Player = function(x, y) {
+  this.x = x;
+  this.y = y;
   this.sprite = "images/char-cat-girl.png"
 }
 // render function for player was not included in starter code
@@ -53,8 +53,9 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// adding player movement functionality within boundaries on canvas
 Player.prototype.handleInput = function (allowedKeys){
-  if (allowedKeys === "left" && player.x > 0){ // movement upon left key, if within boundaries
+  if (allowedKeys === "left" && player.x > 0){
     player.x -= xStep;
   } else if (allowedKeys === "right" && player.x < 404){
     player.x += xStep;
@@ -65,7 +66,7 @@ Player.prototype.handleInput = function (allowedKeys){
   }
 };
 
-var player = new Player();
+var player = new Player(202, 400); // x and y coordinates to render player in middle of bottom row
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
