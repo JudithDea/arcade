@@ -39,6 +39,7 @@ Enemy.prototype.render = function() {
 };
 
 var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*2))];
+// added steps to y coordinate to make enemies show up on separate rows
 
 // Now write your own player class
 // This class requires an update() and
