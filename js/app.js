@@ -49,7 +49,7 @@ var Player = function(x, y) {
   this.y = y;
   this.sprite = "images/char-cat-girl.png"
 }
-// render function for player was not included in starter code
+// render function for player was not included in starter code, here it is
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -64,6 +64,17 @@ Player.prototype.handleInput = function (allowedKeys){
     player.y -= yStep;
   } else if (allowedKeys === "down" && player.y < 400){
     player.y += yStep;
+  }
+};
+
+Player.prototype.update = function () {
+  function resetPlayer(){
+    player.y = 400;
+    player.x = 203;
+  };
+  if (player.y == -15){
+    console.log ("You won");
+    resetPlayer();
   }
 };
 
