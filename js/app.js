@@ -14,6 +14,7 @@ var Enemy = function(x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
+    this.speed = Math.floor(Math.random() * 500);
 };
 
 
@@ -23,7 +24,6 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.speed = Math.floor(Math.random() * 500);
     this.x += this.speed * dt;
 };
 
@@ -42,7 +42,7 @@ Enemy.prototype.render = function() {
 };
 
 // added steps to y coordinate to make enemies show up on separate rows
-var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*2))];
+var allEnemies = [new Enemy(x, y), new Enemy(x-40, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*2)), new Enemy(x-75, y+(yStep*2))];
 
 // Now write your own player class
 var Player = function(x, y) {
