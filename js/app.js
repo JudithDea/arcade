@@ -17,7 +17,7 @@ var Enemy = function(x, y) {
     this.y = y;
     this.width = 101;
     this.height = 171;
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'https://github.com/JudithDea/arcade/blob/master/images/enemy-bug.png';
     this.speed = Math.floor(Math.random() * 500);
 };
 
@@ -54,7 +54,7 @@ var Player = function(x, y) {
   this.y = y;
   this.width = 101;
   this.height = 171;
-  this.sprite = "images/char-cat-girl.png"
+  this.sprite = "https://github.com/JudithDea/arcade/blob/master/images/char-cat-girl.png"
 }
 
 // render function for player was not included in starter code, here it is
