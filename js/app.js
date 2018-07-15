@@ -78,8 +78,8 @@ Player.prototype.handleInput = function(allowedKeys){
 // update method checks winning status, triggers player position reset
 Player.prototype.update = function() {
   if (player.y == -15){
+    alert ("You won! Hooray!")
     resetPlayer();
-    console.log ("Player won")
   }
 };
 
