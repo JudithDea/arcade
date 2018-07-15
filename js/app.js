@@ -6,17 +6,20 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
-// var xEdgeLeft = x+(xStep*-2);
-// var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
+function resetPlayer(){
+  player.y = 400;
+  player.x = 202;
+};
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
     this.x = x;
     this.y = y;
+    this.width = 101;
+    this.height = 171;
     this.sprite = 'images/enemy-bug.png';
     this.speed = Math.floor(Math.random() * 500);
 };
-
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -48,6 +51,8 @@ var allEnemies = [new Enemy(x, y), new Enemy(x-40, y), new Enemy(x, y+yStep), ne
 var Player = function(x, y) {
   this.x = x;
   this.y = y;
+  this.width = 101;
+  this.height = 171;
   this.sprite = "images/char-cat-girl.png"
 }
 
@@ -71,19 +76,21 @@ Player.prototype.handleInput = function(allowedKeys){
 
 // update method checks winning status, triggers player position reset
 Player.prototype.update = function() {
-  function resetPlayer(){
-    player.y = 400;
-    player.x = 202;
-  };
   if (player.y == -15){
     resetPlayer();
   }
 };
 
-function checkCollisions() {
+// using 2d collision detection model: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+// dividing width and height by 2 to make the collision less sensitive
+Player.prototype.checkCollisions = function() {
   for (i = 0; i < allEnemies.length; i++){
-    if (player.y == allEnemies[i].y && player.x >= allEnemies[i].x+50){
-      console.log("bang");
+    if (player.x < allEnemies[i].x + allEnemies[i].width/2 &&
+       player.x + player.width/2 > allEnemies[i].x &&
+       player.y < allEnemies[i].y + allEnemies[i].height/2 &&
+       player.height/2 + player.y > allEnemies[i].y) {
+       console.log ("collision detected!")
+       resetPlayer();
     }
   }
 }
