@@ -82,7 +82,7 @@ Player.prototype.update = function() {
 };
 
 function checkCollisions() {
-  for (i = 0; i < 5; i++){
+  for (i = 0; i < allEnemies.length; i++){
     if (player.y == allEnemies[i].y && player.x >= allEnemies[i].x+50){
       console.log("bang");
     }
