@@ -24,14 +24,17 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.speed = Math.floor(Math.random() * 400) + 100;
-    var startPosEnemy = Math.floor(Math.random() * 500) *-1;
-    if (allEnemies[0].x > 500) {
-      this.x = startPosEnemy; // enemies should show up from outside of the board, not suddenly appear on the first column
-    } else {
-      this.x += this.speed*dt;
-    }
-
+    this.x += this.speed*dt;
 };
+
+Enemy.prototype.reset = function(){
+  var startPosEnemy = Math.floor(Math.random() * 500) *-1;
+  for (i = 0; i < allEnemies.length; i++){
+    if (allEnemies[i].x > 500){
+      this.x = startPosEnemy;
+    }
+  }
+}
 
 // rendering enemy
 Enemy.prototype.render = function() {
