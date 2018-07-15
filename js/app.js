@@ -30,6 +30,7 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 };
 
+// setting new bugs at random start position once they left the screen on the right
 Enemy.prototype.reset = function(){
   var startPosEnemy = Math.floor(Math.random() * 500) *-1;
   for (i = 0; i < allEnemies.length; i++){
@@ -78,6 +79,7 @@ Player.prototype.handleInput = function(allowedKeys){
 Player.prototype.update = function() {
   if (player.y == -15){
     resetPlayer();
+    console.log ("Player won")
   }
 };
 
