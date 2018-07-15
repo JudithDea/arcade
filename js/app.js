@@ -6,6 +6,8 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
+
+
 var xEdgeLeft = x+(xStep*-2);
 var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
 
@@ -27,11 +29,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-      if (allEnemies[0].x > xEnemyEdgeRight) {
-        this.x = xEdgeLeft-1;
-      } else {
-        this.x +=1; // enemies should show up from outside of the board, not suddenly appear on the first column
-      }
+    this.speed = Math.floor(Math.random() * 400) + 100;
+    var startPosEnemy = Math.floor(Math.random() * 500) *-1;
+    if (allEnemies[0].x > xEnemyEdgeRight) {
+      this.x = startPosEnemy; // enemies should show up from outside of the board, not suddenly appear on the first column
+    } else {
+      this.x += this.speed*dt;
+    }
+
 };
 
 Enemy.prototype.render = function() {
@@ -42,8 +47,6 @@ var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*
 // added steps to y coordinate to make enemies show up on separate rows
 
 // Now write your own player class
-// This class requires an update() and
-// a handleInput() method.
 var Player = function(x, y) {
   this.x = x;
   this.y = y;
@@ -55,7 +58,7 @@ Player.prototype.render = function() {
 };
 
 // adding player movement functionality within boundaries on canvas
-Player.prototype.handleInput = function (allowedKeys){
+Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === "left" && player.x > 0){
     player.x -= xStep;
   } else if (allowedKeys === "right" && player.x < 404){
@@ -67,16 +70,24 @@ Player.prototype.handleInput = function (allowedKeys){
   }
 };
 
-Player.prototype.update = function () {
+// update method checks winning status, triggers player position reset
+Player.prototype.update = function() {
   function resetPlayer(){
     player.y = 400;
-    player.x = 203;
+    player.x = 202;
   };
   if (player.y == -15){
-    console.log ("You won");
     resetPlayer();
   }
 };
+
+function checkCollisions() {
+  for (i = 0; i < 5; i++){
+    if (player.y == allEnemies[i].y && player.x >= allEnemies[i].x+50){
+      console.log("bang");
+    }
+  }
+}
 
 var player = new Player(202, 400); // x and y coordinates to render player in middle of bottom row
 
