@@ -6,8 +6,8 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
-var xEdgeLeft = x+(xStep*-2);
-var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
+// var xEdgeLeft = x+(xStep*-2);
+// var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
@@ -100,6 +100,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
