@@ -6,19 +6,13 @@ var xStep = 101; // represents the x-axis increments per horizontal step by fiel
 var y = 62;
 var yStep = 83; // represents the y-axis increments vertical step by field size
 
-
-
 var xEdgeLeft = x+(xStep*-2);
 var xEnemyEdgeRight = x+(xStep*5); // Enemies should disappear completely from the board, not just touch the edge
 
 // Enemies our player must avoid
 var Enemy = function(x, y) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -31,7 +25,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.speed = Math.floor(Math.random() * 400) + 100;
     var startPosEnemy = Math.floor(Math.random() * 500) *-1;
-    if (allEnemies[0].x > xEnemyEdgeRight) {
+    if (allEnemies[0].x > 500) {
       this.x = startPosEnemy; // enemies should show up from outside of the board, not suddenly appear on the first column
     } else {
       this.x += this.speed*dt;
@@ -39,12 +33,13 @@ Enemy.prototype.update = function(dt) {
 
 };
 
+// rendering enemy
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*2))];
 // added steps to y coordinate to make enemies show up on separate rows
+var allEnemies = [new Enemy(x, y), new Enemy(x, y+yStep), new Enemy(x, y+(yStep*2))];
 
 // Now write your own player class
 var Player = function(x, y) {
@@ -52,6 +47,7 @@ var Player = function(x, y) {
   this.y = y;
   this.sprite = "images/char-cat-girl.png"
 }
+
 // render function for player was not included in starter code, here it is
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -89,7 +85,8 @@ function checkCollisions() {
   }
 }
 
-var player = new Player(202, 400); // x and y coordinates to render player in middle of bottom row
+// x and y coordinates to render player in middle of bottom row
+var player = new Player(202, 400);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
